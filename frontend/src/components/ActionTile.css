@@ -12,8 +12,9 @@
     box-shadow: var(--shadow-md);
     position: relative;
     overflow: hidden;
-    flex: 1;
     min-height: 0;
+    height: 100%;
+    width: 100%;
 }
 
 .action-tile:hover {

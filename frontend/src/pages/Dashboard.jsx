@@ -97,6 +97,7 @@ const Dashboard = () => {
         </header>
 
         {/* Main Dashboard Content */}
+        <div className='dashboard-wrapper'>
         <div className="dashboard-content">
           {/* Action Tiles Section - 4/5 of space */}
           <div className="action-tiles-section">
@@ -133,6 +134,7 @@ const Dashboard = () => {
               completedToday={dashboardData.completedToday}
             />
           </div>
+        </div>
         </div>
       </main>
     </div>
