@@ -69,9 +69,9 @@ const Sidebar = ({ onLogout }) => {
           <span>Speaking</span>
         </NavLink>
 
-        {/* Community */}
+        {/* Profile */}
         <NavLink
-          to="/community"
+          to="/profile"
           className={({ isActive }) =>
             `nav-item ${isActive ? "active" : ""}`
           }
@@ -82,18 +82,9 @@ const Sidebar = ({ onLogout }) => {
             <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
             <path d="M16 3.13a4 4 0 0 1 0 7.75" />
           </svg>
-          <span>Community</span>
+          <span>Profile</span>
         </NavLink>
       </nav>
-
-      <button className="logout-btn" onClick={onLogout}>
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-          <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
-          <polyline points="16 17 21 12 16 7" />
-          <line x1="21" y1="12" x2="9" y2="12" />
-        </svg>
-        <span>Logout</span>
-      </button>
     </aside>
   );
 };

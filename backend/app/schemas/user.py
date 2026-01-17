@@ -1,31 +1,34 @@
 from typing import List, Optional
+from datetime import date, datetime  # <--- NEW IMPORT
 from pydantic import BaseModel
 from beanie import Document, Indexed
 
-# --- Embedded Models (Nested Data) ---
-# These are not separate tables; they live inside the User document.
-
 class LanguageProgress(BaseModel):
-    language: str              # e.g., "Spanish"
-    level: str                 # [beginner, intermediate, advanced, fluent]
-    completed_lessons: List[str] # List of lesson Titles
-    last_lesson_rating: Optional[int] = None # 1-5 stars
-    previous_lesson_notes: Optional[str] = None # LLM generated notes
-
-# --- The Main Document ---
+    language: str              
+    level: str                 
+    completed_lessons: List[str] 
+    last_lesson_rating: Optional[int] = None 
+    previous_lesson_notes: Optional[str] = None 
 
 class User(Document):
-    email: Indexed(str, unique=True) # Indexed for fast login lookups
-    password_hash: str               # Stored, but never returned in API
+    email: Indexed(str, unique=True)
+    password_hash: str
     first_name: str
     
-    # Gamification & Stats
+    # Stats
     daily_streak: int = 0
-    total_lessons_completed: int = 0
-    last_lesson_language: Optional[str] = None # For "Jump back in"
+    last_active_date: Optional[date] = None # <--- NEW: Tracks streak
     
-    # The nested list of languages
+    total_lessons_completed: int = 0
+    total_time_spent: int = 0 # <--- NEW: Minutes spent learning
+    
+    last_lesson_language: Optional[str] = None
     languages_studied: List[LanguageProgress] = []
 
     class Settings:
-        name = "users" # Collection name in MongoDB
+        name = "users"
+        
+class UserSignup(BaseModel):
+    email: str
+    password_hash: str
+    first_name: str

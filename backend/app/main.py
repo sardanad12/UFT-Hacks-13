@@ -6,7 +6,7 @@ import uvicorn
 # Internal imports
 from app.core.config import settings
 from app.core.database import init_db
-from app.api.routes import health, auth
+from app.api.routes import health, auth, lessons
 
 # 1. Define the Lifespan Context Manager
 # This replaces the old "startup" and "shutdown" events.
@@ -47,6 +47,7 @@ def get_application() -> FastAPI:
     # Register Routers
     app.include_router(health.router, prefix=settings.API_PREFIX)
     app.include_router(auth.router, prefix=f"{settings.API_PREFIX}/auth", tags=["Authentication"])
+    app.include_router(lessons.router, prefix=f"{settings.API_PREFIX}/lessons", tags=["Lessons"])
 
     return app
 
