@@ -80,7 +80,7 @@
     flex-direction: column;
     gap: 1.5rem;
     min-height: 0;
-    flex 1 1;
+    flex: 1 1;
 }
 
 /* Small Tiles Row - Two tiles side by side */
