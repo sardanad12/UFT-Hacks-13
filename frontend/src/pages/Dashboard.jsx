@@ -78,7 +78,7 @@ const Dashboard = () => {
 
   return (
     <div className="dashboard">
-      <Sidebar onLogout={handleLogout} />
+  
       
       <main className="main-content">
         {/* Header */}

@@ -27,7 +27,7 @@ const Sidebar = ({ onLogout }) => {
       <nav className="sidebar-nav">
         {/* Dashboard */}
         <NavLink
-          to="/"
+          to="/dashboard"
           end
           className={({ isActive }) =>
             `nav-item ${isActive ? "active" : ""}`
