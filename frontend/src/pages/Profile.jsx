@@ -80,10 +80,6 @@ const Profile = () => {
               </span>
             </div>
           </div>
-
-          <button className="logout-btn" onClick={handleLogout}>
-            Logout
-          </button>
         </div>
 
         {/* Stats Grid */}
