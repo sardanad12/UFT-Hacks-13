@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from app.core.config import settings
-from app.api.routes import health
+from app.api.routes import health, auth
 
 def get_application() -> FastAPI:
     app = FastAPI(
@@ -22,6 +22,7 @@ def get_application() -> FastAPI:
 
     # Include routers
     app.include_router(health.router, prefix=settings.API_PREFIX)
+    app.include_router(auth.router, prefix=f"{settings.API_PREFIX}/auth", tags=["Authentication"])
 
     return app
 
