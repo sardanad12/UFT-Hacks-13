@@ -5,6 +5,7 @@ import Dashboard from './pages/Dashboard'
 import Lessons from './pages/Lessons'
 import ProtectedRoute from './components/ProtectedRoute'
 import Layout from './components/Layout'
+import Profile from './pages/Profile'
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
           >
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/lessons" element={<Lessons />} />
+            <Route path="/profile" element={<Profile />} />
             {/* Add other protected routes here */}
           </Route>
         </Routes>
