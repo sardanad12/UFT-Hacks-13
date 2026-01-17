@@ -1,9 +1,10 @@
 /* Page Layout */
 .lessons-page {
     margin-left: 280px; /* matches sidebar width */
-    padding: 3rem;
+    padding: 2.5rem 3rem;
     min-height: 100vh;
     background: var(--bg-primary);
+    background-color: #F9FAFB;
 }
 
 @media (max-width: 768px) {
@@ -16,12 +17,125 @@
 @media (max-width: 480px) {
     .lessons-page {
         margin-left: 0;
+        padding: 1.5rem;
     }
+}
+
+/* Quick Stats / Jump Section */
+.quick-stats {
+    display: flex;
+    gap: 1.5rem;
+    margin-bottom: 2.5rem;
+    flex-wrap: wrap;
+}
+
+/* Common Box Styles */
+.stat-box, .jump-box {
+    background: white;
+    border-radius: 16px;
+    padding: 1.5rem;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    transition: var(--transition);
+}
+
+/* Lessons Completed Box */
+.completed-box {
+    flex: 1;
+    min-width: 120px;
+    background: linear-gradient(135deg, #6b9dfc 0%, #a0c4ff 100%);
+    border-radius: 16px;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* horizontally centered */
+    justify-content: flex-start; /* align to top */
+    text-align: center;
+    padding: 2rem 1.5rem; /* more space at top */
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+.completed-box p {
+    font-size: 1.2rem; /* larger label */
+    margin: 0 0 0.5rem 0; /* spacing below label */
+    color: white;
+    padding-bottom: .3rem;
+}
+
+.completed-box h1 {
+    font-size: 2.8rem; /* bigger number */
+    font-weight: 700;
+    margin: 0;
+    color: white;
+}
+
+/* Streak Box */
+.streak-box {
+    flex: 1;
+    min-width: 120px;
+    background: linear-gradient(135deg, #ff6b6b 0%, #ff8e53 100%);
+    border-radius: 16px;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* horizontally centered */
+    justify-content: flex-start; /* align to top */
+    text-align: center;
+    padding: 2rem 1.5rem;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+.streak-box p {
+    font-size: 1.2rem;
+    margin: 0 0 0.5rem 0;
+    color: white;
+    padding-bottom: 1.2rem;
+}
+
+.streak-box h1 {
+    font-size: 2.8rem;
+    font-weight: 700;
+    margin: 0;
+    color: white;
+}
+
+/* Jump to Next Lesson Box */
+.jump-box {
+    flex: 2;
+    min-width: 240px;
+    gap: 1rem;
+}
+
+.jump-box p {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    margin: 0;
+}
+
+.jump-box h2 {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 0.25rem 0;
+}
+
+.jump-in-btn {
+    margin-top: 0.75rem;
+}
+
+/* Hover Effects - shadow only, no bounce */
+.stat-box:hover,
+.jump-box:hover {
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
 }
 
 /* Header */
 .lessons-header {
-    margin-bottom: 2.5rem;
+    margin-bottom: 2rem;
 }
 
 .lessons-header h1 {
@@ -29,11 +143,6 @@
     font-weight: 700;
     color: var(--text-primary);
     margin-bottom: 0.5rem;
-}
-
-.lessons-header p {
-    color: var(--text-secondary);
-    font-size: 1rem;
 }
 
 /* Grid */
@@ -58,7 +167,6 @@
 }
 
 .lesson-card:hover {
-    transform: translateY(-6px);
     box-shadow: var(--shadow-md);
 }
 
@@ -82,23 +190,34 @@
     margin-bottom: 1.5rem;
 }
 
-/* Button */
+/* Buttons */
+button {
+    cursor: pointer;
+}
+
 .lesson-btn {
     padding: 0.75rem 1.5rem;
     border-radius: 10px;
     border: none;
-    background: linear-gradient(
-        135deg,
-        var(--primary-color),
-        var(--primary-light)
-    );
+    background: linear-gradient(135deg, var(--primary-color), var(--primary-light));
     color: white;
     font-weight: 600;
-    cursor: pointer;
     transition: var(--transition);
 }
 
 .lesson-btn:hover {
     transform: scale(1.05);
-    box-shadow: var(--shadow-sm);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+}
+
+/* Responsive tweaks */
+@media (max-width: 768px) {
+    .quick-stats {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .jump-box {
+        min-width: 100%;
+    }
 }
