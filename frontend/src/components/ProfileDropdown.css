@@ -62,7 +62,7 @@
   display: flex;
   align-items: center;
   gap: 0.875rem;
-  padding: 1rem;
+  padding: 0.75rem;
   background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(139, 92, 246, 0.1));
   border-bottom: 1px solid var(--border-color);
 }
@@ -114,11 +114,11 @@
 
 /* Dropdown Items */
 .dropdown-items {
-  padding: 0.5rem;
+  padding: 0.25rem;
 }
 
 .dropdown-footer {
-  padding: 0.5rem;
+  padding: 0.25rem;
 }
 
 .dropdown-item {
@@ -126,7 +126,7 @@
   align-items: center;
   gap: 0.75rem;
   width: 100%;
-  padding: 0.75rem 0.875rem;
+  padding: 0.5rem 0.5rem;
   border: none;
   background: none;
   border-radius: 10px;
