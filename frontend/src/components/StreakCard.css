@@ -1,48 +1,130 @@
 .streak-card {
+    box-sizing: border-box;
     background: linear-gradient(135deg, #ff6b6b 0%, #ff8e53 100%);
     color: white;
-    padding: 2rem;
+    padding: 1.5rem;
     border-radius: 20px;
     box-shadow: var(--shadow-lg);
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 0;
+    max-height: 100%;
 }
 
 .streak-header {
     display: flex;
     align-items: center;
-    gap: 1rem;
-    margin-bottom: 1.5rem;
+    gap: 0.75rem;
+    margin-bottom: 1rem;
 }
 
 .flame-icon {
-    font-size: 3rem;
+    font-size: 2.5rem;
     animation: flicker 1.5s infinite;
 }
 
 .streak-header h3 {
-    font-size: 1.5rem;
+    font-size: 1.25rem;
     margin-bottom: 0.25rem;
 }
 
 .streak-subtitle {
-    font-size: 0.9rem;
+    font-size: 0.85rem;
     opacity: 0.9;
 }
 
 .streak-count {
     text-align: center;
-    margin: 2rem 0;
+    margin: 1rem 0;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 .streak-number {
-    font-size: 4rem;
+    font-size: 3.5rem;
     font-weight: 700;
     display: block;
     line-height: 1;
 }
 
 .streak-label {
-    font-size: 1.25rem;
+    font-size: 1.1rem;
     opacity: 0.9;
+    margin-top: 0.25rem;
+}
+
+.daily-completion {
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 15px;
+    padding: 1.5rem;
+    margin: 1.5rem 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+}
+
+.completion-label {
+    font-size: 1rem;
+    font-weight: 600;
+    opacity: 0.95;
+}
+
+.completion-box {
+    width: 80px;
+    height: 80px;
+    border-radius: 15px;
+    background: rgba(255, 255, 255, 0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    border: 3px dashed rgba(255, 255, 255, 0.5);
+}
+
+.completion-box.completed {
+    background: white;
+    border: 3px solid white;
+    animation: completionPulse 0.6s ease;
+}
+
+.checkmark {
+    font-size: 3rem;
+    color: #ff6b6b;
+    font-weight: bold;
+    animation: checkmarkAppear 0.5s ease;
+}
+
+.empty-circle {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 3px solid rgba(255, 255, 255, 0.5);
+}
+
+@keyframes completionPulse {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.1);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+@keyframes checkmarkAppear {
+    0% {
+        opacity: 0;
+        transform: scale(0.5) rotate(-45deg);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1) rotate(0deg);
+    }
 }
 
 .streak-calendar {

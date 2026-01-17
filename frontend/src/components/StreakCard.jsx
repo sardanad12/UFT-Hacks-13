@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import './StreakCard.css'
 
-const StreakCard = ({ streak }) => {
+const StreakCard = ({ streak, completedToday = false }) => {
   const [animatedStreak, setAnimatedStreak] = useState(0)
 
   useEffect(() => {
@@ -35,21 +35,16 @@ const StreakCard = ({ streak }) => {
         <span className="streak-label">days</span>
       </div>
       
-      <div className="streak-calendar">
-        {weekDays.map((day, index) => {
-          let className = 'calendar-day'
-          if (index < streak - 1) {
-            className += ' completed'
-          } else if (index === streak - 1) {
-            className += ' active'
-          }
-          
-          return (
-            <div key={index} className={className} title={`Day ${index + 1}`}>
-              <span>{day}</span>
-            </div>
-          )
-        })}
+      {/* Daily Completion Indicator */}
+      <div className="daily-completion">
+        <div className="completion-label">Today's Lesson</div>
+        <div className={`completion-box ${completedToday ? 'completed' : ''}`}>
+          {completedToday ? (
+            <span className="checkmark">✓</span>
+          ) : (
+            <span className="empty-circle"></span>
+          )}
+        </div>
       </div>
     </div>
   )

@@ -3,7 +3,7 @@
    ============================================ */
 .dashboard {
     display: flex;
-    min-height: 100vh;
+    height: 100vh;
     background: var(--bg-secondary);
 }
 
@@ -13,15 +13,21 @@
     margin-left: 280px;
     padding: 2rem;
     animation: fadeIn 0.5s ease;
+    height: auto;
+    overflow-y: hidden;
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
 }
 
 .dashboard-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 2rem;
-    padding-bottom: 1.5rem;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
     border-bottom: 1px solid var(--border-color);
+    flex-shrink: 0;
 }
 
 .header-left h1 {
@@ -51,45 +57,54 @@
     font-size: 1.25rem;
 }
 
-/* Streak Section */
-.streak-section {
+/* Main Dashboard Content Layout */
+.dashboard-content {
     display: grid;
-    grid-template-columns: 2fr 1fr;
-    gap: 1.5rem;
-    margin-bottom: 2rem;
+    grid-template-columns: 3fr 1fr;
+    gap: 2rem;
+    flex: 1 1 0;
+    align-items: stretch;
+    min-height: 0;
 }
 
-.stats-grid {
+/* Action Tiles Section - Left side (3/4) */
+.action-tiles-section {
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
+    min-height: 0;
 }
 
-/* Language Proficiency Section */
-.proficiency-section {
-    margin-top: 2rem;
-}
-
-.proficiency-section h2 {
-    font-size: 1.75rem;
-    margin-bottom: 1.5rem;
-    color: var(--text-primary);
-}
-
-.languages-grid {
+/* Small Tiles Row - Two tiles side by side */
+.small-tiles-row {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    grid-template-columns: 1fr 1fr;
     gap: 1.5rem;
+    min-height: 180px;
+}
+
+/* Streak Section - Right side (1/4) */
+.streak-section {
+    display: flex;
+    flex-direction: column;
 }
 
 /* Responsive Design */
+@media (max-width: 1200px) {
+    .dashboard-content {
+        grid-template-columns: 3fr 1fr;
+    }
+}
+
 @media (max-width: 1024px) {
-    .streak-section {
-        grid-template-columns: 1fr;
+    .dashboard-content {
+        display: flex;
     }
     
-    .stats-grid {
-        flex-direction: row;
+    .streak-section {
+        position: static;
+        max-width: 500px;
+        margin: 0 auto;
     }
 }
 
@@ -105,12 +120,13 @@
         gap: 1rem;
     }
     
-    .languages-grid {
-        grid-template-columns: 1fr;
+    .dashboard-content {
+        display: flex;
+        gap: 1.5rem;
     }
-    
-    .stats-grid {
-        flex-direction: column;
+
+    .small-tiles-row {
+        min-height: 150px;
     }
 }
 
@@ -122,5 +138,16 @@
     
     .dashboard-header h1 {
         font-size: 1.5rem;
+    }
+    
+    .dashboard-content {
+        display: flex;
+        gap: 1rem;
+    }
+
+    .small-tiles-row {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+        min-height: auto;
     }
 }

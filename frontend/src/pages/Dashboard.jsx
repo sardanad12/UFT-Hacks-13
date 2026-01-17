@@ -3,8 +3,8 @@ import { useNavigate } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
 import Sidebar from '../components/Sidebar'
 import StreakCard from '../components/StreakCard'
-import StatsCard from '../components/StatsCard'
-import LanguageCard from '../components/LanguageCard'
+import ActionTile from '../components/ActionTile'
+import SmallTile from '../components/SmallTile'
 import './Dashboard.css'
 
 const Dashboard = () => {
@@ -13,38 +13,52 @@ const Dashboard = () => {
   
   const [dashboardData, setDashboardData] = useState({
     streak: 6,
-    lessonsCompleted: 24,
-    timeSpent: 12,
-    languages: [
-      {
-        id: 1,
-        name: 'Spanish',
-        flag: '🇪🇸',
-        level: 'Intermediate',
-        progress: 68,
-        wordsLearned: 450,
-        lessonsCompleted: 18
-      },
-      {
-        id: 2,
-        name: 'French',
-        flag: '🇫🇷',
-        level: 'Beginner',
-        progress: 35,
-        wordsLearned: 180,
-        lessonsCompleted: 8
-      },
-      {
-        id: 3,
-        name: 'Japanese',
-        flag: '🇯🇵',
-        level: 'Advanced',
-        progress: 82,
-        wordsLearned: 720,
-        lessonsCompleted: 32
-      }
-    ]
+    completedToday: false, // Track if user completed today's lesson
+    // Last activity can be 'learning' or 'conversation'
+    lastActivity: {
+      type: 'learning', // 'learning' or 'conversation'
+      language: 'Spanish',
+      flag: '🇪🇸',
+      lessonNumber: 12,
+      topic: 'Verb Conjugations',
+      date: 'Today'
+    },
+    // Daily time spent in minutes
+    dailyTimeSpent: 45
   })
+
+  // Determine the dynamic continue tile content based on last activity
+  const getContinueTileContent = () => {
+    const { type, language, flag, lessonNumber, topic } = dashboardData.lastActivity
+    
+    if (type === 'learning') {
+      return {
+        title: 'Continue Learning',
+        subtitle: `${flag} ${language} • Lesson ${lessonNumber}: ${topic}`,
+        icon: '📚',
+        link: '/lessons'
+      }
+    } else {
+      return {
+        title: 'Practice Conversation',
+        subtitle: `${flag} ${language} • Continue your conversation practice`,
+        icon: '💬',
+        link: '/conversation'
+      }
+    }
+  }
+
+  const continueTile = getContinueTileContent()
+
+  // Format daily time spent
+  const formatTimeSpent = (minutes) => {
+    if (minutes < 60) {
+      return `${minutes} min`
+    }
+    const hours = Math.floor(minutes / 60)
+    const mins = minutes % 60
+    return mins > 0 ? `${hours}h ${mins}m` : `${hours}h`
+  }
 
   const handleLogout = () => {
     logout()
@@ -81,35 +95,45 @@ const Dashboard = () => {
             </div>
           </div>
         </header>
-        
-        {/* Streak Section */}
-        <section className="streak-section">
-          <StreakCard streak={dashboardData.streak} />
-          
-          <div className="stats-grid">
-            <StatsCard
-              icon="📚"
-              label="Lessons Completed"
-              value={dashboardData.lessonsCompleted}
+
+        {/* Main Dashboard Content */}
+        <div className="dashboard-content">
+          {/* Action Tiles Section - 4/5 of space */}
+          <div className="action-tiles-section">
+            {/* Dynamic Continue Tile - based on last activity */}
+            <ActionTile
+              title={continueTile.title}
+              subtitle={continueTile.subtitle}
+              icon={continueTile.icon}
+              link={continueTile.link}
+              gradient="linear-gradient(135deg, #667eea 0%, #764ba2 100%)"
             />
-            <StatsCard
-              icon="⏱️"
-              label="Time Spent"
-              value={`${dashboardData.timeSpent}h`}
+            
+            {/* Two Small Tiles Row */}
+            <div className="small-tiles-row">
+              <SmallTile
+                title="Daily Time Spent"
+                value={formatTimeSpent(dashboardData.dailyTimeSpent)}
+                icon="⏱️"
+                gradient="linear-gradient(135deg, #f093fb 0%, #f5576c 100%)"
+              />
+              <SmallTile
+                title="My Profile"
+                icon="👤"
+                link="/profile"
+                gradient="linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)"
+              />
+            </div>
+          </div>
+
+          {/* Streak Section - 1/5 of space */}
+          <div className="streak-section">
+            <StreakCard 
+              streak={dashboardData.streak} 
+              completedToday={dashboardData.completedToday}
             />
           </div>
-        </section>
-        
-        {/* Language Proficiency Section */}
-        <section className="proficiency-section">
-          <h2>Your Language Proficiency</h2>
-          
-          <div className="languages-grid">
-            {dashboardData.languages.map((language) => (
-              <LanguageCard key={language.id} language={language} />
-            ))}
-          </div>
-        </section>
+        </div>
       </main>
     </div>
   )
