@@ -1,4 +1,5 @@
 import { createContext, useContext, useState, useEffect } from 'react'
+import { loginRequest } from "../api/auth"
 
 const AuthContext = createContext(null)
 
@@ -20,35 +21,17 @@ export const AuthProvider = ({ children }) => {
     setLoading(false)
   }, [])
 
-  const login = (email, password) => {
-    return new Promise((resolve, reject) => {
-      // Simulate API call
-      setTimeout(() => {
-        // Basic validation
-        if (!email || !password) {
-          reject(new Error('Email and password are required'))
-          return
-        }
+  const login = async (email, password_hash) => {
+  // call backend
+  const userData = await loginRequest(email, password_hash)
 
-        if (password.length < 6) {
-          reject(new Error('Password must be at least 6 characters'))
-          return
-        }
+  // store in state + localStorage
+  setUser(userData)
+  localStorage.setItem("user", JSON.stringify(userData))
 
-        // Create user data
-        const userData = {
-          name: email.split('@')[0],
-          email: email,
-          loginTime: new Date().toISOString()
-        }
+  return userData
+}
 
-        // Store user in state and localStorage
-        setUser(userData)
-        localStorage.setItem('user', JSON.stringify(userData))
-        resolve(userData)
-      }, 1500)
-    })
-  }
 
   const logout = () => {
     setUser(null)
@@ -57,6 +40,7 @@ export const AuthProvider = ({ children }) => {
 
   const value = {
     user,
+    setUser,
     login,
     logout,
     loading,

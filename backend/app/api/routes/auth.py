@@ -8,6 +8,7 @@ class LoginRequest(BaseModel):
     email: str
     password_hash: str
 
+
 @router.post("/login", response_model=User)
 async def login(credentials: LoginRequest):
     # MongoDB Query: Find one document where email matches
