@@ -7,22 +7,42 @@ const Profile = () => {
   const navigate = useNavigate()
   const { user, logout } = useAuth()
 
-  // Mock user data - replace with real data from your backend
-  const [profileData] = useState({
-    name: user?.name || 'Language Learner',
-    email: user?.email || 'user@example.com',
-    joinDate: 'January 2026',
-    currentLanguage: 'Spanish',
-    languageFlag: '🇪🇸',
-    stats: {
-      totalTime: 2340, // in minutes
-      streak: 6,
-      lessonsCompleted: 42,
-      wordsLearned: 387,
-      conversationMinutes: 120,
-      currentLevel: 'Gold'
+  // Safety check - don't render if user is null
+  if (!user) return null
+
+  // Get language flag emoji
+  const getLanguageFlag = (language) => {
+    const flags = {
+      'Spanish': '🇪🇸',
+      'French': '🇫🇷',
+      'German': '🇩🇪',
+      'Italian': '🇮🇹',
+      'Portuguese': '🇵🇹',
+      'Hindi': '🇮🇳',
+      'Chinese': '🇨🇳',
+      'Japanese': '🇯🇵',
+      'Korean': '🇰🇷',
+      'English': '🇬🇧'
     }
-  })
+    return flags[language] || '🌍'
+  }
+
+  // Build profile data from user object
+  const profileData = {
+    name: user.first_name || user.email?.split('@')[0] || 'Language Learner',
+    email: user.email || 'user@example.com',
+    joinDate: 'January 2026', // Could be calculated from user creation date if available
+    currentLanguage: user.last_lesson_language || (user.languages_studied?.[0]?.language) || 'No language yet',
+    languageFlag: user.last_lesson_language ? getLanguageFlag(user.last_lesson_language) : (user.languages_studied?.[0] ? getLanguageFlag(user.languages_studied[0].language) : '🌍'),
+    stats: {
+      totalTime: user.total_time_spent || 0,
+      streak: user.daily_streak || 0,
+      lessonsCompleted: user.total_lessons_completed || 0,
+      wordsLearned: 0, // Not in user schema, could calculate from lessons
+      conversationMinutes: 0, // Not in user schema
+      currentLevel: user.languages_studied?.[0]?.level || 'Beginner'
+    }
+  }
 
   // Format time in minutes to hours/minutes
   const formatTime = (minutes) => {
@@ -34,12 +54,8 @@ const Profile = () => {
   const totalTime = formatTime(profileData.stats.totalTime)
 
   const getUserInitials = () => {
-    const name = profileData.name
-    const words = name.split(' ')
-    if (words.length >= 2) {
-      return (words[0][0] + words[1][0]).toUpperCase()
-    }
-    return name.substring(0, 2).toUpperCase()
+    const name = user.first_name || user.email?.split('@')[0] || 'User'
+    return name.charAt(0).toUpperCase()
   }
 
   const handleLogout = () => {
