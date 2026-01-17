@@ -69,9 +69,9 @@ const Sidebar = ({ onLogout }) => {
           <span>Speaking</span>
         </NavLink>
 
-        {/* Community */}
+        {/* Profile */}
         <NavLink
-          to="/community"
+          to="/profile"
           className={({ isActive }) =>
             `nav-item ${isActive ? "active" : ""}`
           }
@@ -82,7 +82,7 @@ const Sidebar = ({ onLogout }) => {
             <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
             <path d="M16 3.13a4 4 0 0 1 0 7.75" />
           </svg>
-          <span>Community</span>
+          <span>Profile</span>
         </NavLink>
       </nav>
 
