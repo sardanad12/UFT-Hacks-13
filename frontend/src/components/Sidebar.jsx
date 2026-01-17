@@ -57,7 +57,7 @@ const Sidebar = ({ onLogout }) => {
 
         {/* Practice */}
         <NavLink
-          to="/practice"
+          to="/speaking"
           className={({ isActive }) =>
             `nav-item ${isActive ? "active" : ""}`
           }
@@ -66,7 +66,7 @@ const Sidebar = ({ onLogout }) => {
             <circle cx="12" cy="12" r="10" />
             <polyline points="12 6 12 12 16 14" />
           </svg>
-          <span>Practice</span>
+          <span>Speaking</span>
         </NavLink>
 
         {/* Profile */}
