@@ -36,7 +36,7 @@
 .profile-card {
     background: white;
     border-radius: 20px;
-    padding: 2.5rem;
+    padding: 1rem;
     box-shadow: var(--shadow-md);
     display: flex;
     align-items: center;
