@@ -1,0 +1,104 @@
+/* Page Layout */
+.lessons-page {
+    margin-left: 280px; /* matches sidebar width */
+    padding: 3rem;
+    min-height: 100vh;
+    background: var(--bg-primary);
+}
+
+@media (max-width: 768px) {
+    .lessons-page {
+        margin-left: 70px;
+        padding: 2rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .lessons-page {
+        margin-left: 0;
+    }
+}
+
+/* Header */
+.lessons-header {
+    margin-bottom: 2.5rem;
+}
+
+.lessons-header h1 {
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 0.5rem;
+}
+
+.lessons-header p {
+    color: var(--text-secondary);
+    font-size: 1rem;
+}
+
+/* Grid */
+.lessons-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 2rem;
+}
+
+/* Card */
+.lesson-card {
+    background: white;
+    border-radius: 16px;
+    padding: 2rem;
+    box-shadow: var(--shadow-sm);
+    border: 1px solid var(--border-color);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    transition: var(--transition);
+}
+
+.lesson-card:hover {
+    transform: translateY(-6px);
+    box-shadow: var(--shadow-md);
+}
+
+/* Flag */
+.lesson-flag {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+}
+
+/* Text */
+.lesson-card h3 {
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 0.5rem;
+}
+
+.lesson-card p {
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+    margin-bottom: 1.5rem;
+}
+
+/* Button */
+.lesson-btn {
+    padding: 0.75rem 1.5rem;
+    border-radius: 10px;
+    border: none;
+    background: linear-gradient(
+        135deg,
+        var(--primary-color),
+        var(--primary-light)
+    );
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.lesson-btn:hover {
+    transform: scale(1.05);
+    box-shadow: var(--shadow-sm);
+}
