@@ -16,7 +16,7 @@ const Dashboard = () => {
   if (!user) return null
   
   const [dashboardData, setDashboardData] = useState({
-    completedToday: false, // Track if user completed today's lesson
+    completedToday: user.last_active_date == new Date().toISOString().slice(0, 10), // Track if user completed today's lesson
   })
 
   // Get language flag emoji
