@@ -5,6 +5,7 @@ import Sidebar from '../components/Sidebar'
 import StreakCard from '../components/StreakCard'
 import ActionTile from '../components/ActionTile'
 import SmallTile from '../components/SmallTile'
+import ProfileDropdown from '../components/ProfileDropdown'
 import './Dashboard.css'
 
 const Dashboard = () => {
@@ -60,20 +61,10 @@ const Dashboard = () => {
     return mins > 0 ? `${hours}h ${mins}m` : `${hours}h`
   }
 
-  const handleLogout = () => {
-    logout()
-    navigate('/login')
-  }
-
   const getUserName = () => {
     if (!user) return 'User'
     const name = user.name || user.email?.split('@')[0] || 'User'
     return name.charAt(0).toUpperCase() + name.slice(1)
-  }
-
-  const getUserInitials = () => {
-    const name = getUserName()
-    return name.charAt(0).toUpperCase()
   }
 
   return (
@@ -88,11 +79,7 @@ const Dashboard = () => {
             <p>Keep up the great work on your language learning journey!</p>
           </div>
           <div className="header-right">
-            <div className="user-profile">
-              <div className="user-avatar">
-                <span>{getUserInitials()}</span>
-              </div>
-            </div>
+            <ProfileDropdown />
           </div>
         </header>
 
