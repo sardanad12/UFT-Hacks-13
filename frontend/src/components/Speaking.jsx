@@ -1,8 +1,18 @@
 import { useState, useEffect, useRef } from 'react'
+import { useAuth } from '../context/AuthContext'
 import './Speaking.css'
 
 const Speaking = () => {
-  const [selectedLanguage, setSelectedLanguage] = useState('Spanish')
+  const { user } = useAuth()
+  
+  // Get default language from user data
+  const getDefaultLanguage = () => {
+    if (user?.last_lesson_language) return user.last_lesson_language
+    if (user?.languages_studied?.[0]?.language) return user.languages_studied[0].language
+    return 'Spanish'
+  }
+  
+  const [selectedLanguage, setSelectedLanguage] = useState(getDefaultLanguage())
   const [selectedTopic, setSelectedTopic] = useState('Greetings')
   const [mode, setMode] = useState('Assisted') // 'Assisted' or 'Non-Assisted'
   const [conversation, setConversation] = useState([])

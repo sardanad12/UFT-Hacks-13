@@ -12,40 +12,42 @@ const Dashboard = () => {
   const navigate = useNavigate()
   const { user, logout } = useAuth()
   
+  // Safety check - don't render if user is null
+  if (!user) return null
+  
   const [dashboardData, setDashboardData] = useState({
-    streak: 6,
     completedToday: false, // Track if user completed today's lesson
-    // Last activity can be 'learning' or 'conversation'
-    lastActivity: {
-      type: 'learning', // 'learning' or 'conversation'
-      language: 'Spanish',
-      flag: '🇪🇸',
-      lessonNumber: 12,
-      topic: 'Verb Conjugations',
-      date: 'Today'
-    },
-    // Daily time spent in minutes
-    dailyTimeSpent: 45
   })
+
+  // Get language flag emoji
+  const getLanguageFlag = (language) => {
+    const flags = {
+      'Spanish': '🇪🇸',
+      'French': '🇫🇷',
+      'German': '🇩🇪',
+      'Italian': '🇮🇹',
+      'Portuguese': '🇵🇹',
+      'Hindi': '🇮🇳',
+      'Chinese': '🇨🇳',
+      'Japanese': '🇯🇵',
+      'Korean': '🇰🇷',
+      'English': '🇬🇧'
+    }
+    return flags[language] || '🌍'
+  }
 
   // Determine the dynamic continue tile content based on last activity
   const getContinueTileContent = () => {
-    const { type, language, flag, lessonNumber, topic } = dashboardData.lastActivity
+    const language = user.last_lesson_language || 'a new language'
+    const flag = user.last_lesson_language ? getLanguageFlag(user.last_lesson_language) : '📚'
     
-    if (type === 'learning') {
-      return {
-        title: 'Continue Learning',
-        subtitle: `${flag} ${language} • Lesson ${lessonNumber}: ${topic}`,
-        icon: '📚',
-        link: '/lessons'
-      }
-    } else {
-      return {
-        title: 'Practice Conversation',
-        subtitle: `${flag} ${language} • Continue your conversation practice`,
-        icon: '💬',
-        link: '/conversation'
-      }
+    return {
+      title: 'Continue Learning',
+      subtitle: user.last_lesson_language 
+        ? `${flag} ${language} • Continue your journey`
+        : 'Start your language journey',
+      icon: '📚',
+      link: '/lessons'
     }
   }
 
@@ -62,8 +64,7 @@ const Dashboard = () => {
   }
 
   const getUserName = () => {
-    if (!user) return 'User'
-    const name = user.name || user.email?.split('@')[0] || 'User'
+    const name = user.first_name || user.email?.split('@')[0] || 'User'
     return name.charAt(0).toUpperCase() + name.slice(1)
   }
 
@@ -100,8 +101,8 @@ const Dashboard = () => {
             {/* Two Small Tiles Row */}
             <div className="small-tiles-row">
               <SmallTile
-                title="Daily Time Spent"
-                value={formatTimeSpent(dashboardData.dailyTimeSpent)}
+                title="Total Time Spent"
+                value={formatTimeSpent(user.total_time_spent || 0)}
                 icon="⏱️"
                 gradient="linear-gradient(135deg, #f093fb 0%, #f5576c 100%)"
               />
@@ -117,7 +118,7 @@ const Dashboard = () => {
           {/* Streak Section - 1/5 of space */}
           <div className="streak-section">
             <StreakCard 
-              streak={dashboardData.streak} 
+              streak={user.daily_streak || 0} 
               completedToday={dashboardData.completedToday}
             />
           </div>

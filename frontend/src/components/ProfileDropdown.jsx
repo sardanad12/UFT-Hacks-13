@@ -28,7 +28,7 @@ const ProfileDropdown = () => {
 
   const getUserName = () => {
     if (!user) return 'User'
-    const name = user.name || user.email?.split('@')[0] || 'User'
+    const name = user.first_name || user.email?.split('@')[0] || 'User'
     return name.charAt(0).toUpperCase() + name.slice(1)
   }
 
