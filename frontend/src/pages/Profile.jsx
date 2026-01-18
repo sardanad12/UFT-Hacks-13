@@ -38,8 +38,6 @@ const Profile = () => {
       totalTime: user.total_time_spent || 0,
       streak: user.daily_streak || 0,
       lessonsCompleted: user.total_lessons_completed || 0,
-      wordsLearned: 0, // Not in user schema, could calculate from lessons
-      conversationMinutes: 0, // Not in user schema
       currentLevel: user.languages_studied?.[0]?.level || 'Beginner'
     }
   }
@@ -136,38 +134,6 @@ const Profile = () => {
               </div>
             </div>
 
-            {/* Words Learned Card */}
-            <div className="stat-card">
-              <div className="stat-icon-wrapper" style={{background: 'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)'}}>
-                <span className="stat-icon">💬</span>
-              </div>
-              <div className="stat-details">
-                <h4 className="stat-label">Words Learned</h4>
-                <p className="stat-value">{profileData.stats.wordsLearned}</p>
-              </div>
-            </div>
-
-            {/* Conversation Time Card */}
-            <div className="stat-card">
-              <div className="stat-icon-wrapper" style={{background: 'linear-gradient(135deg, #fa709a 0%, #fee140 100%)'}}>
-                <span className="stat-icon">🎙️</span>
-              </div>
-              <div className="stat-details">
-                <h4 className="stat-label">Conversation Time</h4>
-                <p className="stat-value">{profileData.stats.conversationMinutes} min</p>
-              </div>
-            </div>
-
-            {/* Level Card */}
-            <div className="stat-card">
-              <div className="stat-icon-wrapper" style={{background: 'linear-gradient(135deg, #a8edea 0%, #fed6e3 100%)'}}>
-                <span className="stat-icon">⭐</span>
-              </div>
-              <div className="stat-details">
-                <h4 className="stat-label">Current Level</h4>
-                <p className="stat-value">{profileData.stats.currentLevel}</p>
-              </div>
-            </div>
           </div>
         </div>
       </main>

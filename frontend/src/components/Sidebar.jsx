@@ -21,7 +21,7 @@ const Sidebar = ({ onLogout }) => {
             strokeLinejoin="round"
           />
         </svg>
-        <h2>LinguaLearn</h2>
+        <h2>Raíz</h2>
       </div>
 
       <nav className="sidebar-nav">
