@@ -37,22 +37,35 @@ const Lessons = () => {
     // Get next lesson info
     const getNextLesson = () => {
         if (user.last_lesson_language) {
-            return `${user.last_lesson_language} - Continue Learning`;
+            return {
+                language: user.last_lesson_language,
+                flag: getLanguageFlag(user.last_lesson_language)
+            };
         }
         if (lessons.length > 0) {
-            return `${lessons[0].name} - Start Learning`;
+            return {
+                language: lessons[0].name,
+                flag: lessons[0].flag
+            };
         }
-        return "Start Your First Lesson";
+        return {
+            language: "Start Your First Lesson",
+            flag: "📚"
+        };
     };
     return (
         <main className="lessons-page">
             {/* Quick Stats / Jump Section */}
-            <h1 style={{ paddingBottom: "2.2rem" }}>
+            <h1 className="page-title">
                 Your Progress, You're Doing Great!
-            </h1>            <section className="quick-stats">
+            </h1>
+            <section className="quick-stats">
                 <div className="jump-box">
                     <p>Next Lesson</p>
-                    <h2>{getNextLesson()}</h2>
+                    <h2>
+                        <span className="jump-flag">{getNextLesson().flag}</span>
+                        {getNextLesson().language}
+                    </h2>
                     <button className="lesson-btn jump-in-btn">Jump In</button>
                 </div>
 
@@ -63,7 +76,7 @@ const Lessons = () => {
 
                 <div className="stat-box streak-box">
                     <p className="streak-label">🔥 Streak</p>
-                    <h1 className="streak-number">{user.daily_streak || 0} days</h1>
+                    <h1 className="streak-number">{user.daily_streak || 0}</h1>
                 </div>
 
             </section>

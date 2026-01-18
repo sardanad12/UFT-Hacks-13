@@ -1,4 +1,5 @@
 from pydantic_settings import BaseSettings
+from pydantic import ConfigDict
 
 class Settings(BaseSettings):
     PROJECT_NAME: str = "LinguaLearn Microservice"
@@ -9,8 +10,8 @@ class Settings(BaseSettings):
     ALLOWED_ORIGINS: list[str] = ["http://localhost:3000"]
     
     MONGODB_URL: str
-
-    class Config:
-        env_file = ".env"
+    
+    # Allow extra fields like GOOGLE_API_KEY without validation errors
+    model_config = ConfigDict(extra='ignore', env_file=".env")
 
 settings = Settings()
