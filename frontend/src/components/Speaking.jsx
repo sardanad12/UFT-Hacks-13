@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react'
 import { useAuth } from '../context/AuthContext'
 import './Speaking.css'
+import { useGeminiAudio } from "../hooks/useGeminiAudio";
 
 const Speaking = () => {
   const { user } = useAuth()
