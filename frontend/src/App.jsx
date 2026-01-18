@@ -7,6 +7,7 @@ import ProtectedRoute from './components/ProtectedRoute'
 import Layout from './components/Layout'
 import Profile from './pages/Profile'
 import Speaking from './components/Speaking'
+import TestWebSocket from './components/TestWebSocket'
 
 function App() {
   return (
@@ -29,6 +30,7 @@ function App() {
             <Route path="/lessons" element={<Lessons />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/speaking" element={<Speaking />} />
+            <Route path="/test-ws" element={<TestWebSocket />} />
             {/* Add other protected routes here */}
           </Route>
         </Routes>
