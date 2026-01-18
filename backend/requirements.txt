@@ -6,3 +6,5 @@ beanie>=1.25.0
 certifi
 websockets
 google-genai
+numpy
+ffmpeg-python

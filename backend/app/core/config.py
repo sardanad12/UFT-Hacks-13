@@ -9,7 +9,8 @@ class Settings(BaseSettings):
     ALLOWED_ORIGINS: list[str] = ["http://localhost:3000"]
     
     MONGODB_URL: str
-
+    GEMINI_API_KEY: str
+    
     class Config:
         env_file = ".env"
 
