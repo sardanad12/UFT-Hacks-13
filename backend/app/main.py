@@ -6,7 +6,11 @@ import uvicorn
 # Internal imports
 from app.core.config import settings
 from app.core.database import init_db
-from app.api.routes import health, auth, lessons, chat, test_ws
+from app.api.routes import health, auth, lessons, chat, test_ws, speaking_realtime
+import sys
+import asyncio
+if sys.platform == "win32":
+    asyncio.set_event_loop_policy(asyncio.WindowsProactorEventLoopPolicy())
 
 # 1. Define the Lifespan Context Manager
 # This replaces the old "startup" and "shutdown" events.

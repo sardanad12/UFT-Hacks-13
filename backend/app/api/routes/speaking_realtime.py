@@ -86,9 +86,9 @@ LANGUAGE_INSTRUCTIONS = {
 }
 
 # Get API key from environment
-API_KEY = os.getenv("GOOGLE_API_KEY")
+API_KEY = os.getenv("GEMINI_API_KEY")
 if not API_KEY:
-    print("WARNING: GOOGLE_API_KEY not set - WebSocket audio will not work!")
+    print("WARNING: GEMINI_API_KEY not set - WebSocket audio will not work!")
 
 # ============================================
 # HELPER FUNCTIONS

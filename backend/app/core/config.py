@@ -10,6 +10,7 @@ class Settings(BaseSettings):
     ALLOWED_ORIGINS: list[str] = ["http://localhost:3000"]
     
     MONGODB_URL: str
+    GEMINI_API_KEY: str
     
     # Allow extra fields like GOOGLE_API_KEY without validation errors
     model_config = ConfigDict(extra='ignore', env_file=".env")
