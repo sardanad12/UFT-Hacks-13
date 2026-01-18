@@ -10,10 +10,10 @@ Key Configuration:
 
 from fastapi import APIRouter, WebSocket, WebSocketDisconnect
 from google import genai
-import os
 import json
 import base64
 import asyncio
+from app.core.config import settings
 
 router = APIRouter()
 
@@ -85,10 +85,10 @@ LANGUAGE_INSTRUCTIONS = {
     In NON-ASSISTED mode: just have a natural conversation.""",
 }
 
-# Get API key from environment
-API_KEY = os.getenv("GOOGLE_API_KEY")
+# Get API key from environment (.env via Settings)
+API_KEY = settings.GEMINI_API_KEY
 if not API_KEY:
-    print("WARNING: GOOGLE_API_KEY not set - WebSocket audio will not work!")
+    print("WARNING: GEMINI_API_KEY not set - WebSocket audio will not work!")
 
 # ============================================
 # HELPER FUNCTIONS

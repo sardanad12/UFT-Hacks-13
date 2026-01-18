@@ -1,5 +1,6 @@
 from pydantic_settings import BaseSettings
 from pydantic import ConfigDict
+from pathlib import Path
 
 class Settings(BaseSettings):
     PROJECT_NAME: str = "LinguaLearn Microservice"
@@ -8,10 +9,13 @@ class Settings(BaseSettings):
     
     # Example of a secure setting (reads from env var or defaults to localhost)
     ALLOWED_ORIGINS: list[str] = ["http://localhost:3000"]
-    
+    GEMINI_API_KEY: str
     MONGODB_URL: str
     
-    # Allow extra fields like GOOGLE_API_KEY without validation errors
-    model_config = ConfigDict(extra='ignore', env_file=".env")
+    # Load backend/.env reliably regardless of current working directory
+    model_config = ConfigDict(
+        extra='ignore',
+        env_file=str(Path(__file__).resolve().parents[2] / ".env")
+    )
 
 settings = Settings()
