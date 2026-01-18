@@ -50,6 +50,7 @@ def get_application() -> FastAPI:
     app.include_router(lessons.router, prefix=f"{settings.API_PREFIX}/lessons", tags=["Lessons"])
     app.include_router(chat.router, prefix=f"{settings.API_PREFIX}/chat", tags=["Chat"])
     app.include_router(test_ws.router, prefix=f"{settings.API_PREFIX}/test", tags=["Test WebSocket"])
+    app.include_router(speaking_realtime.router, prefix=f"{settings.API_PREFIX}/speaking", tags=["Speaking"])
 
     return app
 

@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
 import Sidebar from '../components/Sidebar'
-import StreakCard from '../components/StreakCard'
 import ActionTile from '../components/ActionTile'
 import SmallTile from '../components/SmallTile'
 import ProfileDropdown from '../components/ProfileDropdown'
@@ -36,7 +35,7 @@ const Dashboard = () => {
     return flags[language] || '🌍'
   }
 
-  // Determine the dynamic continue tile content based on last activity
+  // Determine the dynamic continue tile content
   const getContinueTileContent = () => {
     const language = user.last_lesson_language || 'a new language'
     const flag = user.last_lesson_language ? getLanguageFlag(user.last_lesson_language) : '📚'
@@ -53,7 +52,7 @@ const Dashboard = () => {
 
   const continueTile = getContinueTileContent()
 
-  // Format daily time spent
+  // Format time spent
   const formatTimeSpent = (minutes) => {
     if (minutes < 60) {
       return `${minutes} min`
@@ -68,62 +67,86 @@ const Dashboard = () => {
     return name.charAt(0).toUpperCase() + name.slice(1)
   }
 
+  const getGreeting = () => {
+    const hour = new Date().getHours()
+    if (hour < 12) return 'Good morning'
+    if (hour < 18) return 'Good afternoon'
+    return 'Good evening'
+  }
+
   return (
     <div className="dashboard">
-  
-      
       <main className="main-content">
         {/* Header */}
         <header className="dashboard-header">
-          <div className="header-left">
-            <h1>Welcome back, <span className="user-name">{getUserName()}</span>! 👋</h1>
-            <p>Keep up the great work on your language learning journey!</p>
+          <div className="header-content">
+            <div className="greeting-section">
+              <p className="greeting-time">{getGreeting()}</p>
+              <h1 className="greeting-name">{getUserName()}</h1>
+            </div>
           </div>
-          <div className="header-right">
+          <div className="header-actions">
             <ProfileDropdown />
           </div>
         </header>
 
-        {/* Main Dashboard Content */}
-        <div className='dashboard-wrapper'>
-        <div className="dashboard-content">
-          {/* Action Tiles Section - 4/5 of space */}
-          <div className="action-tiles-section">
-            {/* Dynamic Continue Tile - based on last activity */}
-            <ActionTile
-              title={continueTile.title}
-              subtitle={continueTile.subtitle}
-              icon={continueTile.icon}
-              link={continueTile.link}
-              gradient="linear-gradient(135deg, #667eea 0%, #764ba2 100%)"
-            />
-            
-            {/* Two Small Tiles Row */}
-            <div className="small-tiles-row">
-              <SmallTile
-                title="Total Time Spent"
-                value={formatTimeSpent(user.total_time_spent || 0)}
-                icon="⏱️"
-                gradient="linear-gradient(135deg, #f093fb 0%, #f5576c 100%)"
-              />
-              <SmallTile
-                title="My Profile"
-                icon="👤"
-                link="/profile"
-                gradient="linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)"
-              />
+        {/* Stats Overview Bar */}
+        <div className="stats-overview">
+          <div className="stat-item">
+            <span className="stat-label">Current Streak</span>
+            <div className="stat-value-with-check">
+              <span className="stat-value">{user.daily_streak || 0} days 🔥</span>
+              <div className={`completion-indicator ${dashboardData.completedToday ? 'completed' : ''}`}>
+                {dashboardData.completedToday ? (
+                  <span className="checkmark">✓</span>
+                ) : (
+                  <span className="empty-circle"></span>
+                )}
+              </div>
             </div>
           </div>
-
-          {/* Streak Section - 1/5 of space */}
-          <div className="streak-section">
-            <StreakCard 
-              streak={user.daily_streak || 0} 
-              completedToday={dashboardData.completedToday}
-            />
+          <div className="stat-divider"></div>
+          <div className="stat-item">
+            <span className="stat-label">Time Today</span>
+            <span className="stat-value">{formatTimeSpent(user.total_time_spent || 0)} ⏱️</span>
+          </div>
+          <div className="stat-divider"></div>
+          <div className="stat-item">
+            <span className="stat-label">Learning</span>
+            <span className="stat-value">
+              {user.last_lesson_language ? getLanguageFlag(user.last_lesson_language) : '🌍'} {user.last_lesson_language || 'New Language'}
+            </span>
           </div>
         </div>
+
+        {/* Main Dashboard Grid */}
+        <div className="dashboard-grid">
+          {/* Primary Action Card */}
+          <ActionTile
+            title={continueTile.title}
+            subtitle={continueTile.subtitle}
+            icon={continueTile.icon}
+            link={continueTile.link}
+            gradient="linear-gradient(135deg, #667eea 0%, #764ba2 100%)"
+          />
+          
+          {/* Secondary Actions */}
+          <SmallTile
+            title="Practice Speaking"
+            subtitle="Have a conversation"
+            icon="🎤"
+            link="/speaking"
+            gradient="linear-gradient(135deg, #f093fb 0%, #f5576c 100%)"
+          />
+          <SmallTile
+            title="My Progress"
+            subtitle="View stats & achievements"
+            icon="📊"
+            link="/profile"
+            gradient="linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)"
+          />
         </div>
+
       </main>
     </div>
   )
